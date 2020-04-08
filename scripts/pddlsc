@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+
+import sys
+import argparse
+from pddls.pddlsc import main
+
+if __name__ == '__main__':
+    #TODO duplicated argparse code
+    ap = argparse.ArgumentParser(description='Translate PDDLS to PDDL (or YAML).')
+    ap.add_argument('input_pddls_file', type=str,
+                    help='source problem PDDLS')
+    ap.add_argument('-d', '--domain_file',
+                    nargs='+', type=str,
+                    help='PDDLS file(s) for domain')
+    ap.add_argument('-r', '--ontology_file',
+                    nargs='+', type=str, default=[],
+                    help='RDF file(s) for ontology')
+    ap.add_argument('-o', '--output_file',
+                    type=argparse.FileType('w'), default=sys.stdout,
+                    help='Output problem PDDL file')
+    args = ap.parse_args()
+    
+    main(args)

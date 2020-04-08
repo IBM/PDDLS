@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+import sys
+import json
+import yaml
+
+from pddls.json2pddl import printPDDL
+
+
+def main():
+    pddl = None
+    if sys.argv[1][-len('.yaml'):].lower() == '.yaml':
+        pddl = yaml.load(open(sys.argv[1], 'r'))
+    else:
+        # json or jsonld
+        pddl = json.load(open(sys.argv[1], 'r'))
+    printPDDL(pddl)
+
+
+if __name__ == '__main__':
+    main()
