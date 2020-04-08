@@ -23,7 +23,7 @@ def extractPredicateURIs(domains):
     for pddlDomain in domains:
         domainContext = pddlDomain.get('@context', {})
         for predicateStmt in pddlDomain['pddl:predicates']:
-            symbol = predicateStmt.keys()[0]
+            symbol = next(iter(predicateStmt.keys())) # first key
             params = predicateStmt[symbol]
             if symbol in domainContext:
                 result[domainContext[symbol]] = (symbol, params)
@@ -79,7 +79,7 @@ def translate(problem, objects_ontology, domains, common_ontology=rdflib.Graph()
     print(yaml.dump(dict(objectURIs), default_flow_style=False, indent=4))
 
     axioms = []
-    for predURI, (symbol, _params) in predicateURIs.viewitems():
+    for predURI, (symbol, _params) in predicateURIs.items():
         print("Resolving predicate {}".format(predURI))
         qres = resolvePredicateAxioms(predURI, objectURIs, onto_graph)
         for uriRefs in qres:
