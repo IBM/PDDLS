@@ -1,0 +1,47 @@
+(define (problem planners-demo2-problem1)
+    (:domain planners-demo2)
+    (:context
+	available - uri:cril/action/available
+	clear - uri:cril/action/clear
+        CylindricalPillar_1 - uri:cril/demo2/CylindricalPillar_1
+        TriangularPillar_2 - uri:cril/demo2/TriangularPillar_2
+        SquarePillar_3 - uri:cril/demo2/SquarePillar_3
+        CylindricalHole_4 - uri:cril/demo2/CylindricalHole_4
+        TriangularHole_5 - uri:cril/demo2/TriangularHole_5
+        SquareHole_6 - uri:cril/demo2/SquareHole_6
+    )
+    (:objects
+        CylindricalPillar_1 - pillar
+        TriangularPillar_2 - pillar
+        SquarePillar_3 - pillar
+        CylindricalHole_4 - hole
+        TriangularHole_5 - hole
+        SquareHole_6 - hole
+    )
+
+    (:init
+        ; Predicates to be added with semantic resolution
+        ; (insertable CylindricalPillar_1 CylindricalHole_4)
+        ; (insertable SquarePillar_3 SquareHole_6)
+        ; (insertable TriangularPillar_2 TriangularHole_5)
+        ; The following two declaration come from the input data where size of bouding circles of all pillars are same.
+        ; (insertable TriangularPillar_2 CylindricalHole_4)
+        ; (insertable SquarePillar_3 CylindricalHole_4)
+
+        ; Initial state
+        (available CylindricalPillar_1)
+        (available TriangularPillar_2)
+        (available SquarePillar_3)
+        (clear CylindricalHole_4)
+        (clear TriangularHole_5)
+        (clear SquareHole_6)
+        (= (number-of-pillars-inserted) 0)
+        (= (number-of-pillars-to-insert) 3)
+    )
+
+    (:goal
+        (and
+            (= (number-of-pillars-inserted) (number-of-pillars-to-insert))
+        )
+    )
+)

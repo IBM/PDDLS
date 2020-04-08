@@ -1,0 +1,89 @@
+@base <uri:cril/demo2/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix cril_action: <uri:cril/action/> .
+@prefix cril_shapes: <uri:cril/shapes#> .
+@prefix pddl: <uri:pddl#> .
+@prefix pddls: <uri:pddls#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+
+cril_shapes:Hole
+	a owl:Thing .
+
+cril_shapes:Pillar
+	rdfs:subClassOf owl:Thing .
+
+cril_shapes:CylindricalPillar
+	cril_shapes:sectionShape cril_shapes:Circle ;
+	rdfs:subClassOf cril_shapes:Pillar .
+
+cril_shapes:SquarePillar
+	cril_shapes:sectionShape cril_shapes:Square ;
+	rdfs:subClassOf cril_shapes:Pillar .
+
+cril_shapes:TriangularPillar
+	cril_shapes:sectionShape cril_shapes:EquilateralTriangle ;
+	rdfs:subClassOf cril_shapes:Pillar .
+
+cril_shapes:CylindricalHole
+	cril_shapes:sectionShape cril_shapes:Circle ;
+	rdfs:subClassOf cril_shapes:Hole .
+
+cril_shapes:SquareHole
+	cril_shapes:sectionShape cril_shapes:Square ;
+	rdfs:subClassOf cril_shapes:Hole .
+
+cril_shapes:TriangularHole
+	cril_shapes:sectionShape cril_shapes:EquilateralTriangle ;
+	rdfs:subClassOf cril_shapes:Hole .
+
+
+cril_action:clear
+	a pddl:Action .
+
+cril_action:available
+	a pddl:Action .
+
+cril_action:insertable
+	a pddl:Action .
+
+
+cril_action:insertable
+	pddls:establishedWith cril_shapes:InsertableConstraint ;
+	pddls:establishedWith
+		"""PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+           	   PREFIX cril_shapes: <uri:cril/shapes#>
+		   SELECT DISTINCT ?pillar ?hole
+		   WHERE {
+		      ?pillar a ?pillar_type .
+		      ?pillar_type rdfs:subClassOf cril_shapes:Pillar .
+		      ?pillar cril_shapes:size ?pillar_size .
+		      ?pillar_type cril_shapes:sectionShape ?section_shape .
+		      ?hole a ?hole_type .
+		      ?hole_type rdfs:subClassOf cril_shapes:Hole .
+		      ?hole cril_shapes:size ?hole_size .
+		      ?hole_type cril_shapes:sectionShape ?section_shape .
+              	      FILTER (?hole_size >= ?pillar_size)
+		   }"""@sparql .
+
+cril_shapes:InsertableConstaint
+	a sh:NodeShape ;
+	sh:targetClass pddl:parameters ;
+	sh:property [
+	  sh:path ( pddl:param1 cril_shapes:size ) ;
+	  sh:lessThanOrEquals [
+	    sh:property [
+	      sh:path ( pddl:param2 cril_shapes:size ) ;
+	    ] ;
+	  ] ;
+	] ;
+	sh:property [
+	  sh:path ( pddl:param1 rdf:type cril_shapes:sectionShape ) ;
+	  sh:equals [
+	    sh:property [
+	      sh:path ( pddl:param2 rdf:type cril_shapes:sectionShape ) ;
+	    ] ;
+	  ] ;
+	] .

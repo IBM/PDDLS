@@ -1,0 +1,34 @@
+(define (domain planners-demo2)
+    (:requirements :strips :adl :typing)
+    (:context
+	clear - uri:cril/action/clear
+	available - uri:cril/action/available
+	insertable - uri:cril/action/insertable
+	pick-n-insert - uri:cril/action/pick-n-insert
+    )
+    (:types pillar hole)
+    (:predicates
+        (clear ?h - hole) ; hole is not filled
+        (available ?p - pillar) ; pillar is not used
+        (insertable ?p - pillar ?h - hole)
+    )
+    (:functions
+        (number-of-pillars-inserted)
+        (number-of-pillars-to-insert)
+    )
+
+    ; Pick obj, and insert it to hole
+    (:action pick-n-insert
+        :parameters (?p - pillar ?h - hole)
+        :precondition
+            (and
+                (available ?p)
+                (clear ?h)
+                (insertable ?p ?h))
+        :effect
+            (and
+                (not (available ?p))
+                (not (clear ?h))
+                (increase (number-of-pillars-inserted) 1))
+    )
+)

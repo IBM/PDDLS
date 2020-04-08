@@ -1,0 +1,27 @@
+@prefix cril_shapes: <uri:cril/shapes#> .
+@prefix pddl: <uri:pddl#> .
+
+
+<uri:cril/demo2/CylindricalHole_4>
+	cril_shapes:size 3.0 ;	# xsd:decimal
+	a cril_shapes:CylindricalHole .
+	
+<uri:cril/demo2/CylindricalPillar_1>
+	cril_shapes:size 2.0 ;	# xsd:decimal
+	a cril_shapes:CylindricalPillar .
+	
+<uri:cril/demo2/SquareHole_6>
+	cril_shapes:size 2.0 ;	# xsd:decimal
+	a cril_shapes:SquareHole .
+
+<uri:cril/demo2/SquarePillar_3>
+	cril_shapes:size 3.0 ;	# xsd:decimal
+	a cril_shapes:SquarePillar .
+
+<uri:cril/demo2/TriangularHole_5>
+	cril_shapes:size 5.0 ;	# xsd:decimal
+	a cril_shapes:TriangularHole .
+
+<uri:cril/demo2/TriangularPillar_2>
+	cril_shapes:size 2.0 ;	# xsd:decimal
+	a cril_shapes:TriangularPillar .
