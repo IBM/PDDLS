@@ -1,0 +1,14 @@
+
+
+
+Expected inference:
+
+(move-dir pos-a pos-b dir-right)
+
+=>
+
+(move-dir pos-b pos-a dir-left)
+
+
+
+http://api.conceptnet.io/c/en/direction
