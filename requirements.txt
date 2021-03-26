@@ -56,7 +56,7 @@ PySocks==1.6.8
 pytest==5.2.1
 python-jsonrpc-server==0.2.0
 python-language-server==0.29.0
-PyYAML==5.3.1
+PyYAML==5.4
 rdflib==4.2.2
 readme-renderer==25.0
 requests==2.21.0
