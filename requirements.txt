@@ -13,7 +13,7 @@ cffi==1.12.2
 chardet==3.0.4
 conda==4.7.12
 conda-package-handling==1.6.0
-cryptography==3.2
+cryptography==3.3.2
 decorator==4.4.0
 docutils==0.16
 entrypoints==0.3
